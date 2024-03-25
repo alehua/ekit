@@ -8,7 +8,6 @@ func UnsafeToBytes(val string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&bh))
 }
 
-// UnsafeToString 非安全 []byte 转 string 他必须遵守上述规则
 func UnsafeToString(val []byte) string {
 	bh := (*[3]uintptr)(unsafe.Pointer(&val))
 	sh := [2]uintptr{bh[0], bh[1]}
