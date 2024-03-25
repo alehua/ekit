@@ -8,7 +8,7 @@ import (
 	"github.com/alehua/ekit/internal"
 )
 
-// 跳表 skip list
+// 跳表 skip slice
 
 const (
 	FactorP  = float32(0.25) // level i 上的结点 有FactorP的比例出现在level i + 1上
