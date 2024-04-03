@@ -1,4 +1,4 @@
-package contanerx
+package containerx
 
 // 对 "container/heap"的范型封装, 实现优先级队列
 // 堆使用的数据结构是最小二叉树，即根节点比左边子树和右边子树的所有值都小

@@ -3,13 +3,13 @@ package queue
 import (
 	"container/heap"
 	"fmt"
-	"github.com/alehua/ekit/contanerx"
+	"github.com/alehua/ekit/containerx"
 )
 
 // 通过heapX实现优先级队列
 
 type Heap[T any] struct {
-	data *contanerx.HeapX[T]
+	data *containerx.HeapX[T]
 }
 
 // Push pushes the element x onto the heap.
@@ -37,8 +37,8 @@ func (h *Heap[T]) Remove(index int) T {
 }
 
 // NewHeap return Heap pointer and init the heap tree
-func NewHeap[T any](t []T, cmp contanerx.Cmp[T]) *Heap[T] {
-	ret := contanerx.HeapX[T]{Data: t, Cmp: cmp}
+func NewHeap[T any](t []T, cmp containerx.Cmp[T]) *Heap[T] {
+	ret := containerx.HeapX[T]{Data: t, Cmp: cmp}
 	heap.Init(&ret)
 	return &Heap[T]{&ret}
 }
