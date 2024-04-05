@@ -1,6 +1,7 @@
 package queue
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -51,10 +52,20 @@ func TestStructHeap(t *testing.T) {
 	})
 	queuex.Push(cases{"c", 3})
 	queuex.Push(cases{"d", 0})
+
+	top1, _ := queuex.Peek()
+	assert.Equal(t, top1.age, 0)
+
+	top2, _ := queuex.Peek()
+	assert.Equal(t, top2.age, 0)
+
 	n := queuex.Len()
 	for i := 0; i < n; i++ {
 		val := queuex.Pop()
 		t.Log(val)
 		assert.Equal(t, i, val.age)
 	}
+
+	_, err := queuex.Peek()
+	assert.Equal(t, err, fmt.Errorf("heap empty"))
 }

@@ -12,6 +12,10 @@ type HeapX[T any] struct {
 	Cmp  Cmp[T]
 }
 
+func NewHeapX[T any](cmp Cmp[T]) *HeapX[T] {
+	return &HeapX[T]{Cmp: cmp}
+}
+
 func (h *HeapX[T]) Len() int { return len(h.Data) }
 
 func (h *HeapX[T]) Less(i, j int) bool {
@@ -33,4 +37,13 @@ func (h *HeapX[T]) Pop() any {
 	x := old[n-1]
 	h.Data = old[0 : n-1]
 	return x
+}
+
+func (h *HeapX[T]) Peek() (T, bool) {
+	old := h.Data
+	n := len(old)
+	if n == 0 {
+		return *new(T), false
+	}
+	return old[n-1], true
 }

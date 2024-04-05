@@ -21,6 +21,13 @@ func (h *Heap[T]) Pop() T {
 	return heap.Pop(h.data).(T)
 }
 
+func (h *Heap[T]) Peek() (T, error) {
+	if h.data.Len() == 0 {
+		return *new(T), fmt.Errorf("heap empty")
+	}
+	return h.data.Data[0], nil
+}
+
 func (h *Heap[T]) Element(index int) (t T, err error) {
 	if index < 0 || index >= h.data.Len() {
 		return t, fmt.Errorf("out of index")
@@ -41,4 +48,8 @@ func NewHeap[T any](t []T, cmp containerx.Cmp[T]) *Heap[T] {
 	ret := containerx.HeapX[T]{Data: t, Cmp: cmp}
 	heap.Init(&ret)
 	return &Heap[T]{&ret}
+}
+
+func NewHeapPriorityQueue[T any](cmp containerx.Cmp[T]) *Heap[T] {
+	return &Heap[T]{data: containerx.NewHeapX(cmp)}
 }
