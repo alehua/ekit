@@ -80,9 +80,10 @@ func (tw *TimeWheel) tick() {
 			e = e.Next()
 			continue
 		}
-		// 执行任务
-		ctx, _ := context.WithTimeout(context.Background(), time.Second)
-		go func(ctx context.Context, key string, task func(ctx context.Context) error) {
+		go func(key string, task func(ctx context.Context) error) {
+			// 执行任务
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
 			defer func() {
 				if err := recover(); err != nil {
 					fmt.Println("任务执行异常, key=", key)
@@ -92,7 +93,7 @@ func (tw *TimeWheel) tick() {
 			if err != nil {
 				fmt.Println("任务执行异常, key=", key)
 			}
-		}(ctx, task.key, task.task)
+		}(task.key, task.task)
 		e = e.Next()
 		tw.RemoveTask(task.key) // 执行后移除
 	}
